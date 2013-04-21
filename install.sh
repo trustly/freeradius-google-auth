@@ -9,6 +9,7 @@ ABSOLUTE_PATH=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get -q -y update
+apt-get -q -y upgrade
 apt-get -q -y install build-essential libpam0g-dev freeradius git libqrencode3
 
 cd /tmp
@@ -19,7 +20,7 @@ make install
 
 addgroup radius-disabled
 
-patch -d -p1 < "$ABSOLUTE_PATH/etc.patch"
+patch -d / -p1 < "$ABSOLUTE_PATH/etc.patch"
 
 RADIUS_SECRET=`openssl rand -hex 32`
 echo "RADIUS shared secret: $RADIUS_SECRET"
