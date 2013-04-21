@@ -7,8 +7,9 @@ fi
 
 ABSOLUTE_PATH=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)
 
-apt-get update
-apt-get install build-essential libpam0g-dev freeradius git libqrencode3
+export DEBIAN_FRONTEND=noninteractive
+apt-get -q -y update
+apt-get -q -y install build-essential libpam0g-dev freeradius git libqrencode3
 
 cd /tmp
 git clone https://code.google.com/p/google-authenticator/
