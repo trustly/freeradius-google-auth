@@ -1,0 +1,79 @@
+*** a/etc/freeradius/sites-enabled/default
+--- b/etc/freeradius/sites-enabled/default
+***************
+*** 263,269 **** authenticate {
+  
+  	#
+  	#  Pluggable Authentication Modules.
+! #	pam
+  
+  	#
+  	#  See 'man getpwent' for information on how the 'unix'
+--- 263,269 ----
+  
+  	#
+  	#  Pluggable Authentication Modules.
+! 	pam
+  
+  	#
+  	#  See 'man getpwent' for information on how the 'unix'
+*** a/etc/freeradius/users
+--- b/etc/freeradius/users
+***************
+*** 64,69 ****
+--- 64,75 ----
+  # Note that there is NO 'Fall-Through' attribute, so the user will not
+  # be given any additional resources.
+  #
++ 
++ DEFAULT         Group == "radius-disabled", Auth-Type := Reject
++                 Reply-Message = "Your account has been disabled."
++ 
++ DEFAULT        Auth-Type := PAM
++ 
+  #DEFAULT	Group == "disabled", Auth-Type := Reject
+  #		Reply-Message = "Your account has been disabled."
+  #
+*** a/etc/pam.d/radiusd
+--- b/etc/pam.d/radiusd
+***************
+*** 5,11 ****
+  # We fall back to the system default in /etc/pam.d/common-*
+  # 
+          
+! @include common-auth
+! @include common-account
+! @include common-password
+! @include common-session
+--- 5,14 ----
+  # We fall back to the system default in /etc/pam.d/common-*
+  # 
+          
+! #@include common-auth
+! #@include common-account
+! #@include common-password
+! #@include common-session
+! 
+! auth requisite pam_google_authenticator.so forward_pass
+! auth required pam_unix.so use_first_pass
+*** a/etc/radiusd.conf
+--- b/etc/radiusd.conf
+***************
+*** 164,171 **** pidfile = ${run_dir}/${name}.pid
+  #  It will join all groups where "user" is a member.  This can allow
+  #  for some finer-grained access controls.
+  #
+! user = freerad
+! group = freerad
+  
+  #  max_request_time: The maximum time (in seconds) to handle a request.
+  #
+--- 164,171 ----
+  #  It will join all groups where "user" is a member.  This can allow
+  #  for some finer-grained access controls.
+  #
+! user = root
+! group = root
+  
+  #  max_request_time: The maximum time (in seconds) to handle a request.
+  #
