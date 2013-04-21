@@ -4,6 +4,9 @@ Ubuntu 12.04.2 LTS + FreeRADIUS + Google Authenticator
 
 ## 1. Installation
 
+    sudo apt-get -q -y update
+    sudo apt-get -q -y upgrade
+    sudo apt-get -q -y install build-essential libpam0g-dev freeradius git libqrencode3
     sudo ./install.sh
 
 ## 2. Add user
