@@ -56,8 +56,8 @@
 ! 
 ! auth requisite pam_google_authenticator.so forward_pass
 ! auth required pam_unix.so use_first_pass
-*** a/etc/radiusd.conf
---- b/etc/radiusd.conf
+*** a/etc/freeradius/radiusd.conf
+--- b/etc/freeradius/radiusd.conf
 ***************
 *** 164,171 **** pidfile = ${run_dir}/${name}.pid
   #  It will join all groups where "user" is a member.  This can allow
