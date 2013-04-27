@@ -52,12 +52,16 @@ The CA should be an offline computer locked in a safe.
     sudo cp /var/lib/postgresql/9.1/main/root.crt /usr/local/share/ca-certificates/trustly-postgresql.crt
     sudo update-ca-certificates
 
-### 2.5. Require SSL client certs
+### 2.5. Grant access
 
-    # Edit /etc/postgresql/9.1/main/pg_hba.conf:
-    hostssl <database> <user> <address> cert clientcert=1
-    # Example:
-    hostssl trustly joel 192.168.1.0/24 cert clientcert=1
+    # psql:
+    db=# CREATE GROUP sslcertusers;
+
+    # /etc/postgresql/9.1/main/pg_hba.conf:
+    hostssl nameofdatabase +sslcertusers 192.168.1.0/24 cert clientcert=1
+
+    # psql:
+    joel=# ALTER GROUP sslcertusers ADD USER joel;
 
 ### 2.6. Restart PostgreSQL
 
