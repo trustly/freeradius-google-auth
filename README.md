@@ -110,7 +110,7 @@ First we need to install FreeRADIUS and Google Authenticator:
     }
     CLIENTS
     cat | sudo tee /etc/pam.d/radiusd <<RADIUSD
-    auth requisite pam_google_authenticator.so forward_pass
+    auth requisite pam_google_authenticator.so forward_pass noskewadj
     auth required pam_unix.so use_first_pass
     RADIUSD
     git clone https://code.google.com/p/google-authenticator/
